@@ -1,79 +1,79 @@
-# 🎓 PintarDigital — Modern Learning Management System
+# 🎓 PintarDigital — Learning Management System (LMS) Modern
 
-PintarDigital is a professional, role-based learning management system (LMS) designed for a focused and high-performance educational experience.
+PintarDigital adalah platform sistem manajemen pembelajaran (LMS) berbasis peran yang profesional, dirancang untuk memberikan pengalaman pendidikan yang fokus dan berkinerja tinggi.
 
-## 🚀 Key Features
+## 🚀 Fitur Utama
 
--   **Role-Based Access Control (RBAC)**: Distinct dashboards and permissions for **Admins**, **Instructors**, and **Students**.
--   **Advanced Quiz Engine**: Fully functional quiz builder with multiple-choice questions, automated scoring, and instant progress updates.
--   **Student Progress Tracking**: Dynamic progress bars and lesson completion tracking calculated in real-time.
--   **Course Moderation**: Admin-level workflow for approving or rejecting instructor-submitted courses.
--   **Global Settings & Notifications**: Secure profile management and a real-time notification system for enrollments and course status updates.
+-   **Role-Based Access Control (RBAC)**: Dashboard dan perizinan yang berbeda untuk **Admin**, **Instruktur**, dan **Siswa**.
+-   **Mesin Kuis Canggih**: Pembuat kuis yang berfungsi penuh dengan pertanyaan pilihan ganda, penilaian otomatis, dan pembaruan kemajuan instan.
+-   **Pelacakan Kemajuan Siswa**: Bilah kemajuan dinamis dan pelacakan penyelesaian pelajaran yang dihitung secara real-time.
+-   **Moderasi Kursus**: Alur kerja tingkat admin untuk menyetujui atau menolak kursus yang diajukan instruktur.
+-   **Pengaturan Global & Notifikasi**: Manajemen profil yang aman dan sistem notifikasi real-time untuk pendaftaran dan pembaruan status kursus.
 
-## 📸 Screenshots
-
-<p align="center">
-  <strong>Landing Page</strong><br>
-  <img src="documentation/landingpage.png" width="900" alt="Landing Page">
-</p>
+## 📸 Cuplikan Layar
 
 <p align="center">
-  <strong>Instructor Dashboard</strong><br>
-  <img src="documentation/dashboardinstructor.png" width="900" alt="Instructor Dashboard">
+  <strong>Halaman Utama (Landing Page)</strong><br>
+  <img src="documentation/landingpage.png" width="900" alt="Halaman Utama">
 </p>
-
+ 
 <p align="center">
-  <strong>Student Dashboard</strong><br>
-  <img src="documentation/dashboardstudent.png" width="900" alt="Student Dashboard">
+  <strong>Dashboard Instruktur</strong><br>
+  <img src="documentation/dashboardinstructor.png" width="900" alt="Dashboard Instruktur">
 </p>
-
+ 
 <p align="center">
-  <strong>Course Details & Learning Student</strong><br>
-  <img src="documentation/coursedetail.png" width="900" alt="Course Detail">
+  <strong>Dashboard Siswa</strong><br>
+  <img src="documentation/dashboardstudent.png" width="900" alt="Dashboard Siswa">
+</p>
+ 
+<p align="center">
+  <strong>Detail Kursus & Halaman Belajar Siswa</strong><br>
+  <img src="documentation/coursedetail.png" width="900" alt="Detail Kursus">
 </p>
 
-## 🏗️ Technical Architecture
+## 🏗️ Arsitektur Teknis
 
-This application follows a professional **Service and Repository Pattern** to ensure a clean separation of concerns:
+Aplikasi ini menggunakan pola **Service and Repository Pattern** profesional untuk memastikan pemisahan tanggung jawab yang bersih:
 
--   **Repositories**: Centralized data access logic, decoupling the database from the business rules.
--   **Services**: Encapsulated business logic (scoring, enrollment, progress calculation) for high maintainability and testability.
--   **Thin Controllers**: Controllers are focused only on handling HTTP requests and returning responses.
+-   **Repositories**: Logika akses data terpusat, memisahkan database dari aturan bisnis.
+-   **Services**: Logika bisnis yang terenkapsulasi (penilaian, pendaftaran, perhitungan kemajuan) untuk pemeliharaan dan pengujian yang tinggi.
+-   **Thin Controllers**: Pengontrol hanya fokus pada penanganan permintaan HTTP dan mengembalikan respons.
 
-## 🛠️ Technology Stack
+## 🛠️ Teknologi yang Digunakan
 
 -   **Backend**: Laravel 12
 -   **Database**: MySQL
--   **Frontend**: Tailwind CSS (M3/Material Design Inspired Aesthetics), Blade Templates
--   **Icons**: Google Material Symbols
+-   **Frontend**: Tailwind CSS (Estetika Terinspirasi M3/Material Design), Template Blade
+-   **Ikon**: Google Material Symbols
 
-## ⚙️ Installation & Setup
+## ⚙️ Instalasi & Pengaturan
 
-1.  **Clone the repository and install dependencies**:
+1.  **Clone repositori dan instal dependensi**:
     ```bash
     composer install
     npm install
     ```
-2.  **Environment Setup**:
+2.  **Pengaturan Lingkungan (Environment Setup)**:
     ```bash
     cp .env.example .env
     php artisan key:generate
     ```
-3.  **Database Migration & Seeding**:
+3.  **Migrasi & Seeding Database**:
     ```bash
     php artisan migrate:fresh --seed
     ```
-4.  **Run the application**:
+4.  **Jalankan aplikasi**:
     ```bash
     php artisan serve
     ```
 
-## 🔐 Test Credentials (Seeded Data)
+## 🔐 Kredensial Pengujian (Data Seeded)
 
-| Role       | Email                      | Password |
-|------------|----------------------------|----------|
+| Peran      | Email                      | Kata Sandi |
+|------------|----------------------------|------------|
 | **Admin**  | `admin@pintardigital.com`  | `password` |
 | **Owner**  | `instructor@pintardigital.com` | `password` |
-| **Student**| `student@pintardigital.com` | `password` |
+| **Siswa**  | `student@pintardigital.com` | `password` |
 
 
