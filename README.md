@@ -54,5 +54,4 @@ This application follows a professional **Service and Repository Pattern** to en
 | **Owner**  | `instructor@pintardigital.com` | `password` |
 | **Student**| `student@pintardigital.com` | `password` |
 
----
-*Built with passion for deep, focused digital learning.*
+
