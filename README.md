@@ -28,7 +28,7 @@ PintarDigital is a professional, role-based learning management system (LMS) des
 </p>
 
 <p align="center">
-  <strong>Course Details & Learning Player</strong><br>
+  <strong>Course Details & Learning Student</strong><br>
   <img src="documentation/coursedetail.png" width="900" alt="Course Detail">
 </p>
 
