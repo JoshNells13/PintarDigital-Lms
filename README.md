@@ -10,6 +10,28 @@ PintarDigital is a professional, role-based learning management system (LMS) des
 -   **Course Moderation**: Admin-level workflow for approving or rejecting instructor-submitted courses.
 -   **Global Settings & Notifications**: Secure profile management and a real-time notification system for enrollments and course status updates.
 
+## 📸 Screenshots
+
+<p align="center">
+  <strong>Landing Page</strong><br>
+  <img src="documentation/landingpage.png" width="900" alt="Landing Page">
+</p>
+
+<p align="center">
+  <strong>Instructor Dashboard</strong><br>
+  <img src="documentation/dashboardinstructor.png" width="900" alt="Instructor Dashboard">
+</p>
+
+<p align="center">
+  <strong>Student Dashboard</strong><br>
+  <img src="documentation/dashboardstudent.png" width="900" alt="Student Dashboard">
+</p>
+
+<p align="center">
+  <strong>Course Details & Learning Player</strong><br>
+  <img src="documentation/coursedetail.png" width="900" alt="Course Detail">
+</p>
+
 ## 🏗️ Technical Architecture
 
 This application follows a professional **Service and Repository Pattern** to ensure a clean separation of concerns:
