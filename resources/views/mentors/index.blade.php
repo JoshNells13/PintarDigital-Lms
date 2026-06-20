@@ -3,7 +3,7 @@
 @section('title', 'Mentor Kami | PintarDigital')
 
 @section('content')
-    <section class="py-24 bg-surface">
+    <section class="py-24 ">
         <div class="max-w-7xl mx-auto px-8">
             <div class="text-center max-w-3xl mx-auto mb-20">
                 <span class="text-xs font-bold text-primary uppercase tracking-widest mb-2 block">Daftar Mentor</span>

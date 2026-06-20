@@ -3,7 +3,7 @@
 @section('title', 'Katalog Kelas Coding | PintarDigital')
 
 @section('content')
-    <section class="py-24 bg-surface">
+    <section class="py-24">
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
                 <div class="max-w-2xl">

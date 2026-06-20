@@ -111,12 +111,7 @@
 </head>
 
 <body class="bg-surface text-on-surface selection:bg-primary-container selection:text-white">
-    <!-- Grid Background (similar to landing page) -->
-    <div
-        class="absolute inset-0 [background-size:50px_50px] [background-image:linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] pointer-events-none opacity-30 z-0">
-    </div>
-
-    <div class="flex flex-col md:flex-row h-screen overflow-hidden relative z-10">
+    <div class="flex flex-col md:flex-row h-screen overflow-hidden relative">
         <!-- Mobile Sidebar Trigger Header -->
         <div
             class="flex md:hidden h-16 w-full items-center justify-between px-6 bg-surface-container-low border-b border-outline-variant/10 shrink-0">

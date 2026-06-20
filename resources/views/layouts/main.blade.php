@@ -111,7 +111,10 @@
     </style>
 </head>
 
-<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-white">
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-white relative min-h-screen">
+    <!-- Global Page Grid Background (covers all pages extending main layout) -->
+    <div class="absolute inset-0 [background-size:50px_50px] [background-image:linear-gradient(to_right,#222226_1px,transparent_1px),linear-gradient(to_bottom,#222226_1px,transparent_1px)] pointer-events-none opacity-50 z-0"></div>
+
     <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8">
         <div
             class="max-w-7xl mx-auto bg-surface-container-low/75 backdrop-blur-md border border-outline-variant/15 rounded-2xl px-6 py-3 flex justify-between items-center shadow-lg shadow-black/40">
@@ -159,11 +162,11 @@
         </div>
     </header>
 
-    <main class="min-h-screen pt-24 md:pt-28">
+    <main class="min-h-screen pt-24 md:pt-28 relative z-10">
         @yield('content')
     </main>
 
-    <footer class="bg-surface-container-low pt-16 pb-8 border-t border-outline-variant/10">
+    <footer class="bg-surface-container-low pt-16 pb-8 border-t border-outline-variant/10 relative z-10">
         <div class="max-w-7xl mx-auto px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-16">
                 <div class="col-span-2">

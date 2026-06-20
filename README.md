@@ -4,7 +4,20 @@
 [![PHP 8.2](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php)](https://www.php.net)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-PintarDigital adalah platform **Learning Management System (LMS)** profesional yang dirancang untuk memberikan pengalaman belajar-mengajar yang mulus, terstruktur, dan berkinerja tinggi. Aplikasi ini mengimplementasikan standar koding industri dengan pola desain yang bersih dan antarmuka pengguna yang modern.
+PintarDigital adalah platform **Learning Management System (LMS)** profesional yang dirancang untuk memberikan pengalaman belajar-mengajar yang mulus, terstruktur, dan berkinerja tinggi. Aplikasi ini mengimplementasikan standar koding industri dengan pola desain yang bersih, estetika modern bertema gelap-terang minimalis (B&W), dan interaktivitas tingkat lanjut.
+
+---
+
+## 🎨 Pembaruan Desain & Estetika Premium (Terbaru)
+
+PintarDigital kini hadir dengan desain antarmuka modern terinspirasi dari standar desain **Aceternity UI** dan **shadcn/ui**:
+- **Black & White Minimalist Dark Theme**: Tema utama menggunakan warna hitam pekat (`#09090b`) sebagai dasar permukaan, dengan aksen kontras putih (`#ffffff`) dan abu-abu premium (`zinc/neutral`).
+- **Global Grid Background Pattern**: Seluruh bagian landing page dan dashboard dibalut dengan background grid subtle bermotif geometris yang transparan dan menyatu lembut.
+- **Glassmorphic Floating Navbar**: Navigasi atas melayang yang elegan dengan efek *blur* latar belakang (`backdrop-blur-md`) dan transisi navigasi interaktif.
+- **Hero Floating Animation**: Ilustrasi kartu mockup interaktif pada Hero Section memiliki animasi mengambang lembut (`animate-float`) untuk meningkatkan kenyamanan visual.
+- **Animated Testimonials (Blade Version)**: Komponen testimoni dinamis yang mensimulasikan pergeseran kartu 3D dengan rotasi, penskalaan acak, dan reveal kata per kata.
+- **Collapsible Dashboard Sidebar**: Sidebar panel dashboard interaktif yang ringkas (`w-20`) dan melebar secara halus saat dihover (`hover:w-72`), lengkap dengan reveal teks dan pencantuman avatar instan.
+- **Vibrant Code Syntax Highlighting**: Blok kode pemrograman di dalam materi pembelajaran tidak lagi hitam-putih; sekarang terintegrasi dengan **Highlight.js (GitHub Dark)** serta dilengkapi tombol salin kode cepat ("Salin / Tersalin!").
 
 ---
 
@@ -54,9 +67,9 @@ PintarDigital menggunakan **Role-Based Access Control (RBAC)** yang kuat untuk m
 
 ### 👨‍🎓 Siswa (Student)
 *   **Discovery**: Mencari dan mendaftar pada berbagai kursus yang tersedia.
-*   **Interactive Learning**: Akses materi video/teks dalam pemutar video khusus.
+*   **Interactive Learning**: Akses materi terstruktur bebas gangguan dengan code syntax highlighting berwarna dan fungsionalitas salin cepat.
 *   **Real-time Progress**: Pelacakan kemajuan belajar yang dihitung secara otomatis setiap kali bab diselesaikan.
-*   **Quiz Attempt**: Mengambil kuis dan melihat hasil skor secara instan.
+*   **Quiz Attempt**: Mengambil kuis dan melihat hasil skor kelulusan secara instan (KKM kelulusan 70%).
 
 ---
 
@@ -83,7 +96,8 @@ app/
 
 *   **Backend**: [Laravel 12](https://laravel.com) (PHP 8.2+)
 *   **Database**: MySQL / MariaDB
-*   **Frontend**: [Tailwind CSS](https://tailwindcss.com) (Material Design 3 Aesthetics)
+*   **Frontend**: [Tailwind CSS](https://tailwindcss.com) (Material Design 3 & Black-White Custom Minimalist Aesthetics)
+*   **Syntax Highlighting**: [Highlight.js](https://highlightjs.org/) (GitHub Dark Theme)
 *   **Icons**: [Google Material Symbols](https://fonts.google.com/icons)
 *   **Asset Bundling**: [Vite](https://vitejs.dev)
 
