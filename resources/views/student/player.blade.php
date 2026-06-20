@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,26 +12,26 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#004ac6',
-                        'primary-container': '#2563eb',
-                        'on-primary': '#ffffff',
-                        secondary: '#495c95',
-                        'secondary-container': '#acbfff',
-                        'on-secondary-container': '#394c84',
-                        tertiary: '#943700',
-                        'tertiary-container': '#bc4800',
-                        surface: '#faf8ff',
-                        'on-surface': '#191b23',
-                        'surface-container-lowest': '#ffffff',
-                        'surface-container-low': '#f3f3fe',
-                        'surface-container': '#ededf9',
-                        'surface-container-high': '#e7e7f3',
-                        'surface-container-highest': '#e1e2ed',
-                        'on-surface-variant': '#434655',
-                        'inverse-surface': '#2e3039',
-                        'inverse-on-surface': '#f0f0fb',
-                        outline: '#737686',
-                        'outline-variant': '#c3c6d7',
+                        primary: '#ffffff',
+                        'primary-container': '#27272a',
+                        'on-primary': '#09090b',
+                        secondary: '#a1a1aa',
+                        'secondary-container': '#18181b',
+                        'on-secondary-container': '#ffffff',
+                        tertiary: '#71717a',
+                        'tertiary-container': '#3f3f46',
+                        surface: '#09090b',
+                        'on-surface': '#ffffff',
+                        'surface-container-lowest': '#09090b',
+                        'surface-container-low': '#18181b',
+                        'surface-container': '#27272a',
+                        'surface-container-high': '#3f3f46',
+                        'surface-container-highest': '#52525b',
+                        'on-surface-variant': '#a1a1aa',
+                        'inverse-surface': '#ffffff',
+                        'inverse-on-surface': '#09090b',
+                        outline: '#52525b',
+                        'outline-variant': '#27272a',
                     },
                     borderRadius: {
                         'md': '0.75rem',
@@ -48,64 +49,147 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .glass-panel {
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(9, 9, 11, 0.7);
                 @apply backdrop-blur-xl;
             }
+
             .hero-gradient {
-                background: linear-gradient(180deg, #faf8ff 0%, #f3f3fe 100%);
+                background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
             }
+
             .prose {
                 @apply text-on-surface leading-relaxed;
                 font-size: 1.125rem;
             }
-            .prose h1 { @apply text-4xl font-extrabold tracking-tight mb-8 mt-12; }
-            .prose h2 { @apply text-2xl font-bold tracking-tight mb-6 mt-10; }
-            .prose p { @apply mb-6; }
+
+            .prose h1 {
+                @apply text-4xl font-extrabold tracking-tight mb-8 mt-12;
+            }
+
+            .prose h2 {
+                @apply text-2xl font-bold tracking-tight mb-6 mt-10;
+            }
+
+            .prose p {
+                @apply mb-6;
+            }
+
             .prose blockquote {
                 @apply border-l-4 border-primary pl-6 py-2 italic text-on-surface-variant my-8 bg-primary/5 rounded-r-xl;
             }
-            .prose ul { @apply list-disc pl-6 mb-6 space-y-2; }
-            .prose ol { @apply list-decimal pl-6 mb-6 space-y-2; }
-            .prose hr { @apply border-outline-variant/10 my-12; }
-            .prose code { @apply bg-surface-container-high px-1.5 py-0.5 rounded text-sm font-mono; }
+
+            .prose ul {
+                @apply list-disc pl-6 mb-6 space-y-2;
+            }
+
+            .prose ol {
+                @apply list-decimal pl-6 mb-6 space-y-2;
+            }
+
+            .prose hr {
+                @apply border-outline-variant/10 my-12;
+            }
+
+            .prose code {
+                @apply bg-surface-container-high px-1.5 py-0.5 rounded text-sm font-mono;
+            }
+
             .prose pre {
-                @apply bg-inverse-surface text-inverse-on-surface p-6 rounded-2xl my-8 overflow-x-auto text-sm;
+                background: #18181b !important;
+                border: 1px solid rgba(82, 82, 91, 0.15) !important;
+                @apply p-6 rounded-2xl my-8 overflow-x-auto text-sm;
+            }
+
+            .prose pre code {
+                background: transparent !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js for beautiful syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Highlight code blocks
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+
+            // Add copy button to pre blocks
+            document.querySelectorAll('pre').forEach((pre) => {
+                // Add relative and group classes dynamically to prevent breaking Tailwind CDN compiler
+                pre.classList.add('relative', 'group');
+
+                const button = document.createElement('button');
+                button.className =
+                    'absolute top-3 right-3 text-[10px] bg-zinc-800/85 hover:bg-zinc-700 text-zinc-300 hover:text-white px-2.5 py-1.5 rounded-lg border border-zinc-700/50 transition-all flex items-center gap-1.5 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none';
+                button.innerHTML =
+                    '<span class="material-symbols-outlined text-[14px]">content_copy</span><span>Salin</span>';
+
+                button.addEventListener('click', () => {
+                    const code = pre.querySelector('code');
+                    if (code) {
+                        navigator.clipboard.writeText(code.innerText).then(() => {
+                            button.innerHTML =
+                                '<span class="material-symbols-outlined text-[14px] text-emerald-500">done</span><span class="text-emerald-400">Tersalin!</span>';
+                            setTimeout(() => {
+                                button.innerHTML =
+                                    '<span class="material-symbols-outlined text-[14px]">content_copy</span><span>Salin</span>';
+                            }, 2000);
+                        });
+                    }
+                });
+
+                pre.appendChild(button);
+            });
+        });
+    </script>
 </head>
+
 <body class="bg-surface h-full flex flex-col overflow-hidden font-sans">
     <!-- Player Header -->
     <header class="h-16 bg-surface border-b border-outline-variant/10 px-6 flex justify-between items-center z-50">
         <div class="flex items-center gap-4">
-            <a href="{{ route('student.dashboard') }}" class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors font-bold text-xs flex items-center gap-2" title="Kembali ke Dasbor">
+            <a href="{{ route('student.dashboard') }}"
+                class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors font-bold text-xs flex items-center gap-2"
+                title="Kembali ke Dasbor">
                 <span class="material-symbols-outlined text-sm">close</span>
             </a>
             <div class="h-8 w-px bg-outline-variant/20"></div>
             <div>
                 <h1 class="text-sm font-bold truncate max-w-xs">{{ $course->title }}</h1>
-                <p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">{{ $currentSubChapter->chapter->title }}</p>
+                <p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
+                    {{ $currentSubChapter->chapter->title }}</p>
             </div>
         </div>
-        
+
         <div class="flex items-center gap-3">
             <div class="hidden md:flex flex-col items-end mr-4">
-                <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Progres Kelas ({{ $progressPercentage }}%)</span>
+                <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Progres Kelas
+                    ({{ $progressPercentage }}%)</span>
                 <div class="w-32 bg-surface-container-high h-1 rounded-full overflow-hidden">
-                    <div class="bg-primary h-full transition-all duration-1000" style="width: {{ $progressPercentage }}%"></div>
+                    <div class="bg-primary h-full transition-all duration-1000"
+                        style="width: {{ $progressPercentage }}%"></div>
                 </div>
             </div>
-            
-            @if($isCompleted)
-                <span class="px-5 py-2 bg-green-100 border border-green-200 text-green-800 text-[10px] font-bold uppercase rounded-xl flex items-center gap-2">
+
+            @if ($isCompleted)
+                <span
+                    class="px-5 py-2 bg-green-100 border border-green-200 text-green-800 text-[10px] font-bold uppercase rounded-xl flex items-center gap-2">
                     Selesai
                     <span class="material-symbols-outlined text-sm">verified</span>
                 </span>
             @else
                 <form action="{{ route('student.learning.complete', $currentSubChapter->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="px-5 py-2 bg-primary text-on-primary text-[10px] font-bold uppercase rounded-xl hover:bg-primary-container transition-colors flex items-center gap-2 shadow-lg shadow-primary/20">
+                    <button type="submit"
+                        class="px-5 py-2 bg-primary text-on-primary text-[10px] font-bold uppercase rounded-xl hover:bg-primary-container hover:text-white transition-colors flex items-center gap-2 shadow-lg shadow-primary/20">
                         Tandai Selesai
                         <span class="material-symbols-outlined text-sm font-bold">check_circle</span>
                     </button>
@@ -120,15 +204,16 @@
             <div class="p-6">
                 <h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6">Materi Kelas</h3>
                 <div class="space-y-6">
-                    @foreach($course->chapters as $chapter)
+                    @foreach ($course->chapters as $chapter)
                         <div>
                             <h4 class="text-xs font-bold text-on-surface mb-3">{{ $chapter->title }}</h4>
                             <div class="space-y-1">
-                                @foreach($chapter->subChapters as $sub)
-                                    <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $sub->id]) }}" 
-                                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all {{ $currentSubChapter->id == $sub->id ? 'bg-primary/5 text-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant' }}">
-                                        <span class="material-symbols-outlined text-sm {{ $currentSubChapter->id == $sub->id ? 'fill-1' : '' }}">
-                                            @if($sub->material && $sub->quiz)
+                                @foreach ($chapter->subChapters as $sub)
+                                    <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $sub->id]) }}"
+                                        class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all {{ $currentSubChapter->id == $sub->id ? 'bg-primary/5 text-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant' }}">
+                                        <span
+                                            class="material-symbols-outlined text-sm {{ $currentSubChapter->id == $sub->id ? 'fill-1' : '' }}">
+                                            @if ($sub->material && $sub->quiz)
                                                 menu_book
                                             @elseif($sub->material)
                                                 article
@@ -136,14 +221,19 @@
                                                 quiz
                                             @endif
                                         </span>
-                                        <span class="text-[11px] font-bold line-clamp-1 flex-1">{{ $sub->title }}</span>
-                                        
+                                        <span
+                                            class="text-[11px] font-bold line-clamp-1 flex-1">{{ $sub->title }}</span>
+
                                         @php
-                                            $subCompleted = \App\Models\Progress::where('user_id', auth()->id())->where('sub_chapter_id', $sub->id)->where('is_completed', true)->exists();
+                                            $subCompleted = \App\Models\Progress::where('user_id', auth()->id())
+                                                ->where('sub_chapter_id', $sub->id)
+                                                ->where('is_completed', true)
+                                                ->exists();
                                         @endphp
-                                        
-                                        @if($subCompleted)
-                                            <span class="material-symbols-outlined text-green-600 text-sm">check_circle</span>
+
+                                        @if ($subCompleted)
+                                            <span
+                                                class="material-symbols-outlined text-green-600 text-sm">check_circle</span>
                                         @endif
                                     </a>
                                 @endforeach
@@ -157,14 +247,16 @@
         <!-- Main Material Rendering -->
         <main class="flex-1 overflow-y-auto bg-surface-container-lowest">
             <div class="p-8">
-                 @if(session('success'))
-                    <div class="max-w-3xl mx-auto mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-xl flex items-center gap-3 shadow-sm">
+                @if (session('success'))
+                    <div
+                        class="max-w-3xl mx-auto mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-xl flex items-center gap-3 shadow-sm">
                         <span class="material-symbols-outlined text-green-600">check_circle</span>
                         <p class="text-sm font-semibold">{{ session('success') }}</p>
                     </div>
                 @endif
-                @if(session('error'))
-                    <div class="max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl flex items-center gap-3 shadow-sm">
+                @if (session('error'))
+                    <div
+                        class="max-w-3xl mx-auto mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl flex items-center gap-3 shadow-sm">
                         <span class="material-symbols-outlined text-red-600">error</span>
                         <p class="text-sm font-semibold">{{ session('error') }}</p>
                     </div>
@@ -172,13 +264,13 @@
             </div>
 
             <article class="max-w-3xl mx-auto pb-24 px-8 md:px-12">
-                @if($currentSubChapter->material)
-                    <div class="prose max-w-none">
+                @if ($currentSubChapter->material)
+                    <div class="prose prose-invert max-w-none">
                         {!! $currentSubChapter->material->html_content !!}
                     </div>
                 @endif
 
-                @if($currentSubChapter->quiz)
+                @if ($currentSubChapter->quiz)
                     @php
                         $latestAttempt = \App\Models\QuizAttempt::where('user_id', auth()->id())
                             ->where('quiz_id', $currentSubChapter->quiz->id)
@@ -187,33 +279,47 @@
                         $retryMode = request('retry') == 1;
                     @endphp
 
-                    @if($latestAttempt && !$retryMode)
+                    @if ($latestAttempt && !$retryMode)
                         <!-- Special Score Page (Dicoding style) -->
                         <div class="mt-16 pt-16 border-t border-outline-variant/10 text-center">
-                            <div class="bg-surface-container-low p-12 rounded-3xl border border-outline-variant/10 max-w-2xl mx-auto space-y-6">
-                                <span class="material-symbols-outlined text-6xl {{ $latestAttempt->score >= 70 ? 'text-green-600' : 'text-red-600' }} fill-1" style="font-variation-settings: 'FILL' 1;">
+                            <div
+                                class="bg-surface-container-low p-12 rounded-3xl border border-outline-variant/10 max-w-2xl mx-auto space-y-6">
+                                <span
+                                    class="material-symbols-outlined text-6xl {{ $latestAttempt->score >= 70 ? 'text-green-600' : 'text-red-600' }} fill-1"
+                                    style="font-variation-settings: 'FILL' 1;">
                                     {{ $latestAttempt->score >= 70 ? 'verified' : 'cancel' }}
                                 </span>
-                                <h2 class="text-3xl font-extrabold text-on-surface">{{ $currentSubChapter->quiz->title }}</h2>
-                                
-                                <div class="py-6 px-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/10 inline-block">
-                                    <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Skor Anda</p>
-                                    <p class="text-5xl font-black {{ $latestAttempt->score >= 70 ? 'text-green-600' : 'text-red-600' }}">{{ number_format($latestAttempt->score, 1) }}%</p>
+                                <h2 class="text-3xl font-extrabold text-on-surface">
+                                    {{ $currentSubChapter->quiz->title }}</h2>
+
+                                <div
+                                    class="py-6 px-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/10 inline-block">
+                                    <p
+                                        class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">
+                                        Skor Anda</p>
+                                    <p
+                                        class="text-5xl font-black {{ $latestAttempt->score >= 70 ? 'text-green-600' : 'text-red-600' }}">
+                                        {{ number_format($latestAttempt->score, 1) }}%</p>
                                 </div>
 
-                                @if($latestAttempt->score >= 70)
-                                    <p class="text-green-800 font-bold text-sm leading-relaxed">Selamat! Anda dinyatakan lulus kuis ini dengan kualifikasi baik. Silakan lanjutkan pembelajaran Anda.</p>
+                                @if ($latestAttempt->score >= 70)
+                                    <p class="text-green-800 font-bold text-sm leading-relaxed">Selamat! Anda dinyatakan
+                                        lulus kuis ini dengan kualifikasi baik. Silakan lanjutkan pembelajaran Anda.</p>
                                 @else
-                                    <p class="text-red-800 font-bold text-sm leading-relaxed">Maaf, Anda belum mencapai batas minimal nilai kelulusan kuis (70%). Silakan ulangi kuis untuk mencoba lagi.</p>
+                                    <p class="text-red-800 font-bold text-sm leading-relaxed">Maaf, Anda belum mencapai
+                                        batas minimal nilai kelulusan kuis (70%). Silakan ulangi kuis untuk mencoba
+                                        lagi.</p>
                                 @endif
 
                                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                                    <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $currentSubChapter->id, 'retry' => 1]) }}" class="px-8 py-3.5 border border-outline-variant/30 text-on-surface-variant font-bold rounded-xl hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-center gap-2">
+                                    <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $currentSubChapter->id, 'retry' => 1]) }}"
+                                        class="px-8 py-3.5 border border-outline-variant/30 text-on-surface-variant font-bold rounded-xl hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-center gap-2">
                                         <span class="material-symbols-outlined text-sm">refresh</span>
                                         Ulangi Kuis
                                     </a>
-                                    @if($latestAttempt->score >= 70 && $nextSubChapter)
-                                        <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $nextSubChapter->id]) }}" class="px-8 py-3.5 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
+                                    @if ($latestAttempt->score >= 70 && $nextSubChapter)
+                                        <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $nextSubChapter->id]) }}"
+                                            class="px-8 py-3.5 bg-primary text-on-primary font-bold rounded-xl hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
                                             Lanjutkan Belajar
                                             <span class="material-symbols-outlined text-sm">chevron_right</span>
                                         </a>
@@ -224,34 +330,43 @@
                     @else
                         <!-- Kuis Questions Form -->
                         <div class="mt-16 pt-16 border-t border-outline-variant/10 space-y-12">
-                            <div class="text-center bg-surface-container-low p-12 rounded-3xl border border-outline-variant/10">
+                            <div
+                                class="text-center bg-surface-container-low p-12 rounded-3xl border border-outline-variant/10">
                                 <span class="material-symbols-outlined text-5xl text-primary mb-6">quiz</span>
-                                <h2 class="text-3xl font-extrabold mb-2">{{ $currentSubChapter->quiz->title }}</h2>
-                                <p class="text-on-surface-variant font-medium">Verifikasi pemahaman Anda untuk menyelesaikan sub-bab ini. KKM kelulusan adalah 70%.</p>
+                                <h2 class="text-3xl text-white font-extrabold mb-2">
+                                    {{ $currentSubChapter->quiz->title }}</h2>
+                                <p class="text-on-surface-variant font-medium">Verifikasi pemahaman Anda untuk
+                                    menyelesaikan sub-bab ini. KKM kelulusan adalah 70%.</p>
                             </div>
 
-                            <form action="{{ route('student.quizzes.submit', $currentSubChapter->quiz->id) }}" method="POST" class="space-y-12">
+                            <form action="{{ route('student.quizzes.submit', $currentSubChapter->quiz->id) }}"
+                                method="POST" class="space-y-12">
                                 @csrf
-                                @foreach($currentSubChapter->quiz->questions as $question)
-                                    <div class="bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/10 shadow-sm space-y-6">
+                                @foreach ($currentSubChapter->quiz->questions as $question)
+                                    <div
+                                        class="bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/10 shadow-sm space-y-6">
                                         <h4 class="text-lg font-bold flex gap-4 text-on-surface">
                                             <span class="text-primary/40">{{ $loop->iteration }}</span>
                                             {{ $question->question_text }}
                                         </h4>
                                         <div class="grid gap-3">
-                                            @foreach($question->choices as $choice)
-                                                <label class="flex items-center gap-4 px-6 py-4 rounded-xl border border-outline-variant/10 hover:bg-primary/5 hover:border-primary/20 transition-all cursor-pointer group">
-                                                    <input type="radio" name="answers[{{ $question->id }}]" value="{{ $choice->id }}" required 
+                                            @foreach ($question->choices as $choice)
+                                                <label
+                                                    class="flex items-center gap-4 px-6 py-4 rounded-xl border border-outline-variant/10 hover:bg-primary/5 hover:border-primary/20 transition-all cursor-pointer group">
+                                                    <input type="radio" name="answers[{{ $question->id }}]"
+                                                        value="{{ $choice->id }}" required
                                                         class="w-4 h-4 text-primary border-outline-variant/30 focus:ring-primary/20">
-                                                    <span class="text-sm font-medium text-on-surface-variant group-hover:text-on-surface transition-colors">{{ $choice->choice_text }}</span>
+                                                    <span
+                                                        class="text-sm font-medium text-on-surface-variant group-hover:text-on-surface transition-colors">{{ $choice->choice_text }}</span>
                                                 </label>
                                             @endforeach
                                         </div>
                                     </div>
                                 @endforeach
-                                
+
                                 <div class="flex justify-center pt-8">
-                                    <button type="submit" class="px-12 py-5 bg-primary text-on-primary font-black rounded-2xl shadow-2xl shadow-primary/30 hover:scale-[0.98] transition-all uppercase tracking-widest text-xs">
+                                    <button type="submit"
+                                        class="px-12 py-5 bg-primary text-on-primary font-black rounded-2xl shadow-2xl shadow-primary/30 hover:scale-[0.98] transition-all uppercase tracking-widest text-xs">
                                         Kirim Jawaban Kuis
                                     </button>
                                 </div>
@@ -260,41 +375,45 @@
                     @endif
                 @endif
 
-                @if(!$currentSubChapter->material && !$currentSubChapter->quiz)
-                    <div class="bg-surface-container-low p-12 rounded-3xl text-center border-2 border-dashed border-outline-variant/20 italic text-on-surface-variant">
+                @if (!$currentSubChapter->material && !$currentSubChapter->quiz)
+                    <div
+                        class="bg-surface-container-low p-12 rounded-3xl text-center border-2 border-dashed border-outline-variant/20 italic text-on-surface-variant">
                         Materi pelajaran ini sedang dipersiapkan oleh instruktur.
                     </div>
                 @endif
-                
+
                 <!-- Lesson Navigation -->
                 <div class="mt-24 pt-12 border-t border-outline-variant/10 flex justify-between items-center">
-                    @if($prevSubChapter)
-                        <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $prevSubChapter->id]) }}" 
-                           class="flex items-center gap-2 text-on-surface-variant font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors">
+                    @if ($prevSubChapter)
+                        <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $prevSubChapter->id]) }}"
+                            class="flex items-center gap-2 text-on-surface-variant font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors">
                             <span class="material-symbols-outlined text-sm">chevron_left</span>
                             Pelajaran Sebelumnya
                         </a>
                     @else
-                        <div class="flex items-center gap-2 text-on-surface-variant/30 font-bold text-[11px] uppercase tracking-widest cursor-not-allowed">
+                        <div
+                            class="flex items-center gap-2 text-on-surface-variant/30 font-bold text-[11px] uppercase tracking-widest cursor-not-allowed">
                             <span class="material-symbols-outlined text-sm">chevron_left</span>
                             Pelajaran Sebelumnya
                         </div>
                     @endif
 
-                    @if($nextSubChapter)
-                        <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $nextSubChapter->id]) }}" 
-                           class="px-8 py-3 bg-surface-container-high text-on-surface text-[11px] uppercase tracking-widest font-black rounded-xl hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+                    @if ($nextSubChapter)
+                        <a href="{{ route('student.learning', ['course_slug' => $course->slug, 'subChapterId' => $nextSubChapter->id]) }}"
+                            class="px-8 py-3 bg-surface-container-high text-on-surface text-[11px] uppercase tracking-widest font-black rounded-xl hover:bg-surface-container-highest transition-colors flex items-center gap-2">
                             Pelajaran Selanjutnya
                             <span class="material-symbols-outlined text-sm">chevron_right</span>
                         </a>
                     @else
-                        @if($course->isCompletedBy(auth()->user()))
-                            <a href="{{ route('courses.certificate', $course->id) }}" class="px-8 py-3 bg-amber-500 text-white text-[11px] uppercase tracking-widest font-black rounded-xl hover:bg-amber-600 transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20">
+                        @if ($course->isCompletedBy(auth()->user()))
+                            <a href="{{ route('courses.certificate', $course->id) }}"
+                                class="px-8 py-3 bg-amber-500 text-white text-[11px] uppercase tracking-widest font-black rounded-xl hover:bg-amber-600 transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20">
                                 Lihat Sertifikat Kelulusan
                                 <span class="material-symbols-outlined text-sm">workspace_premium</span>
                             </a>
                         @else
-                            <div class="px-8 py-3 bg-surface-container-low text-on-surface-variant/30 text-[11px] uppercase tracking-widest font-black rounded-xl cursor-not-allowed flex items-center gap-2">
+                            <div
+                                class="px-8 py-3 bg-surface-container-low text-on-surface-variant/30 text-[11px] uppercase tracking-widest font-black rounded-xl cursor-not-allowed flex items-center gap-2">
                                 Kelas Selesai
                                 <span class="material-symbols-outlined text-sm">check_circle</span>
                             </div>
@@ -305,4 +424,5 @@
         </main>
     </div>
 </body>
+
 </html>
