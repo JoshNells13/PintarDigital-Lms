@@ -8,14 +8,7 @@ use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
-Route::get('/', function () {
-    $featuredCourses = \App\Models\Course::where('is_approved', true)
-        ->with('instructor')
-        ->latest()
-        ->take(3)
-        ->get();
-    return view('welcome', compact('featuredCourses'));
-})->name('home');
+Route::get('/', [CourseController::class, 'home'])->name('home');
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');

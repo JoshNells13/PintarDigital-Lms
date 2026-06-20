@@ -278,4 +278,14 @@ class CourseController extends Controller
 
         return view('courses.certificate', compact('course', 'user', 'enrollment'));
     }
+
+    public function home()
+    {
+        $featuredCourses = Course::where('is_approved', true)
+            ->with('instructor')
+            ->latest()
+            ->take(3)
+            ->get();
+        return view('welcome', compact('featuredCourses'));
+    }
 }
