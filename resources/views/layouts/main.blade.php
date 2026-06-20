@@ -19,26 +19,26 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#004ac6',
-                        'primary-container': '#2563eb',
-                        'on-primary': '#ffffff',
-                        secondary: '#495c95',
-                        'secondary-container': '#acbfff',
-                        'on-secondary-container': '#394c84',
-                        tertiary: '#943700',
-                        'tertiary-container': '#bc4800',
-                        surface: '#faf8ff',
-                        'on-surface': '#191b23',
-                        'surface-container-lowest': '#ffffff',
-                        'surface-container-low': '#f3f3fe',
-                        'surface-container': '#ededf9',
-                        'surface-container-high': '#e7e7f3',
-                        'surface-container-highest': '#e1e2ed',
-                        'on-surface-variant': '#434655',
-                        'inverse-surface': '#2e3039',
-                        'inverse-on-surface': '#f0f0fb',
-                        outline: '#737686',
-                        'outline-variant': '#c3c6d7',
+                        primary: '#ffffff',
+                        'primary-container': '#27272a',
+                        'on-primary': '#09090b',
+                        secondary: '#a1a1aa',
+                        'secondary-container': '#18181b',
+                        'on-secondary-container': '#ffffff',
+                        tertiary: '#71717a',
+                        'tertiary-container': '#3f3f46',
+                        surface: '#09090b',
+                        'on-surface': '#ffffff',
+                        'surface-container-lowest': '#09090b',
+                        'surface-container-low': '#18181b',
+                        'surface-container': '#27272a',
+                        'surface-container-high': '#3f3f46',
+                        'surface-container-highest': '#52525b',
+                        'on-surface-variant': '#a1a1aa',
+                        'inverse-surface': '#ffffff',
+                        'inverse-on-surface': '#09090b',
+                        outline: '#52525b',
+                        'outline-variant': '#27272a',
                     },
                     borderRadius: {
                         'md': '0.75rem',
@@ -56,11 +56,11 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .glass-panel {
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(9, 9, 11, 0.7);
                 @apply backdrop-blur-xl;
             }
             .hero-gradient {
-                background: linear-gradient(180deg, #faf8ff 0%, #f3f3fe 100%);
+                background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
             }
             .prose {
                 @apply text-on-surface leading-relaxed;
@@ -83,42 +83,42 @@
     </style>
 </head>
 <body class="bg-surface text-on-surface selection:bg-primary-container selection:text-white">
-    <header class="bg-surface/80 backdrop-blur-md fixed top-0 w-full z-50 h-16 border-b border-outline-variant/10">
-        <div class="max-w-[1920px] mx-auto px-8 h-full flex justify-between items-center">
+    <header class="fixed top-4 left-0 right-0 z-50 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto bg-surface-container-low/75 backdrop-blur-md border border-outline-variant/15 rounded-2xl px-6 py-3 flex justify-between items-center shadow-lg shadow-black/40">
             <div class="flex items-center gap-8">
-                <a href="{{ route('home') }}" class="text-xl font-bold tracking-tighter text-primary">PintarDigital</a>
-                <nav class="hidden md:flex gap-6 items-center">
-                    <a href="{{ route('courses.index') }}" class="text-on-surface font-medium hover:text-primary transition-colors">Katalog</a>
-                    <a href="{{ route('mentors.index') }}" class="text-on-surface-variant font-medium hover:text-primary transition-colors">Mentor</a>
-                    <a href="{{ route('learning-paths') }}" class="text-on-surface-variant font-medium hover:text-primary transition-colors">Alur Belajar</a>
-                    <a href="{{ route('leaderboard') }}" class="text-on-surface-variant font-medium hover:text-primary transition-colors">Leaderboard</a>
+                <a href="{{ route('home') }}" class="text-xl font-black tracking-tighter text-primary">PintarDigital</a>
+                <nav class="hidden md:flex gap-2 items-center">
+                    <a href="{{ route('courses.index') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium text-on-surface hover:bg-surface-container-high/50 transition-all">Katalog</a>
+                    <a href="{{ route('mentors.index') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all">Mentor</a>
+                    <a href="{{ route('learning-paths') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all">Alur Belajar</a>
+                    <a href="{{ route('leaderboard') }}" class="px-3 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-all">Leaderboard</a>
                 </nav>
             </div>
             
             <div class="flex items-center gap-4">
                 @auth
                     <div class="flex items-center gap-4">
-                        <a href="{{ route(auth()->user()->role . '.dashboard') }}" class="hidden lg:flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors rounded-xl">
+                        <a href="{{ route(auth()->user()->role . '.dashboard') }}" class="px-4 py-2 text-sm font-semibold text-primary hover:bg-surface-container-high/50 transition-all rounded-xl">
                             Dasbor Saya
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full" title="Keluar">
+                            <button type="submit" class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50 transition-colors rounded-full" title="Keluar">
                                 <span class="material-symbols-outlined">logout</span>
                             </button>
                         </form>
                     </div>
                 @else
                     <div class="flex items-center gap-4">
-                        <a href="{{ route('login') }}" class="text-sm font-semibold text-on-surface hover:text-primary transition-colors">Masuk</a>
-                        <a href="{{ route('register') }}" class="px-5 py-2 bg-primary text-on-primary text-sm font-bold rounded-xl hover:bg-primary-container transition-colors">Daftar Sekarang</a>
+                        <a href="{{ route('login') }}" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-on-surface hover:bg-surface-container-high/50 transition-all">Masuk</a>
+                        <a href="{{ route('register') }}" class="px-5 py-2 bg-primary text-on-primary text-sm font-bold rounded-full hover:scale-95 transition-all shadow-md hover:shadow-white/10">Daftar Sekarang</a>
                     </div>
                 @endauth
             </div>
         </div>
     </header>
 
-    <main class="min-h-screen pt-16">
+    <main class="min-h-screen pt-24 md:pt-28">
         @yield('content')
     </main>
 

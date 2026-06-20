@@ -21,26 +21,26 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#004ac6',
-                        'primary-container': '#2563eb',
-                        'on-primary': '#ffffff',
-                        secondary: '#495c95',
-                        'secondary-container': '#acbfff',
-                        'on-secondary-container': '#394c84',
-                        tertiary: '#943700',
-                        'tertiary-container': '#bc4800',
-                        surface: '#faf8ff',
-                        'on-surface': '#191b23',
-                        'surface-container-lowest': '#ffffff',
-                        'surface-container-low': '#f3f3fe',
-                        'surface-container': '#ededf9',
-                        'surface-container-high': '#e7e7f3',
-                        'surface-container-highest': '#e1e2ed',
-                        'on-surface-variant': '#434655',
-                        'inverse-surface': '#2e3039',
-                        'inverse-on-surface': '#f0f0fb',
-                        outline: '#737686',
-                        'outline-variant': '#c3c6d7',
+                        primary: '#ffffff',
+                        'primary-container': '#27272a',
+                        'on-primary': '#09090b',
+                        secondary: '#a1a1aa',
+                        'secondary-container': '#18181b',
+                        'on-secondary-container': '#ffffff',
+                        tertiary: '#71717a',
+                        'tertiary-container': '#3f3f46',
+                        surface: '#09090b',
+                        'on-surface': '#ffffff',
+                        'surface-container-lowest': '#09090b',
+                        'surface-container-low': '#18181b',
+                        'surface-container': '#27272a',
+                        'surface-container-high': '#3f3f46',
+                        'surface-container-highest': '#52525b',
+                        'on-surface-variant': '#a1a1aa',
+                        'inverse-surface': '#ffffff',
+                        'inverse-on-surface': '#09090b',
+                        outline: '#52525b',
+                        'outline-variant': '#27272a',
                     },
                     borderRadius: {
                         'md': '0.75rem',
@@ -58,12 +58,12 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .glass-panel {
-                background: rgba(255, 255, 255, 0.8);
+                background: rgba(9, 9, 11, 0.7);
                 @apply backdrop-blur-xl;
             }
 
             .hero-gradient {
-                background: linear-gradient(180deg, #faf8ff 0%, #f3f3fe 100%);
+                background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
             }
 
             .prose {

@@ -35,7 +35,7 @@
             <p>You haven't created any courses yet. Start sharing your knowledge today.</p>
         </div>
     @else
-        <div class="bg-white border border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm">
+        <div class="bg-surface-container-low border border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm">
             <table class="w-full text-left">
                 <thead class="bg-surface-container-low text-xs font-bold text-on-surface-variant uppercase tracking-widest">
                     <tr>
