@@ -20,6 +20,9 @@ Route::get('/', function () {
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 Route::post('/courses/{course}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll')->middleware('auth');
+Route::get('/mentors', [\App\Http\Controllers\MentorController::class, 'index'])->name('mentors.index');
+Route::get('/learning-paths', function () { return view('learning-paths'); })->name('learning-paths');
+Route::get('/leaderboard', [\App\Http\Controllers\LeaderboardController::class, 'index'])->name('leaderboard');
 
 // Auth Routes
 Route::middleware('guest')->group(function () {
@@ -31,6 +34,11 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::post('/courses/{course}/like', [CourseController::class, 'like'])->name('courses.like');
+    Route::post('/courses/{course}/comments', [\App\Http\Controllers\CourseCommentController::class, 'store'])->name('courses.comments.store');
+    Route::post('/comments/{comment}/like', [\App\Http\Controllers\CourseCommentController::class, 'likeComment'])->name('comments.like');
+    Route::get('/courses/{course}/certificate', [CourseController::class, 'certificate'])->name('courses.certificate');
 
     // Admin Routes
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {

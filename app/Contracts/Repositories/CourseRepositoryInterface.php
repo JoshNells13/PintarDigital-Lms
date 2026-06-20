@@ -6,7 +6,7 @@ use App\Models\Course;
 
 interface CourseRepositoryInterface
 {
-    public function getAllApproved();
+    public function getAllApproved($categorySlug = null);
     public function findBySlug($slug);
     public function findOrFail($id);
     public function getPendingApproval();

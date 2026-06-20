@@ -17,4 +17,18 @@ class Chapter extends Model
     {
         return $this->hasMany(SubChapter::class)->orderBy('order');
     }
+
+    public function getCompletedUsersCount()
+    {
+        $subChapterIds = $this->subChapters->pluck('id')->toArray();
+        if (empty($subChapterIds)) return 0;
+        
+        return \App\Models\Progress::whereIn('sub_chapter_id', $subChapterIds)
+            ->where('is_completed', true)
+            ->select('user_id')
+            ->groupBy('user_id')
+            ->havingRaw('COUNT(DISTINCT sub_chapter_id) = ?', [count($subChapterIds)])
+            ->get()
+            ->count();
+    }
 }

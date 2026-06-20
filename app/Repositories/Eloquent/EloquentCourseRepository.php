@@ -7,14 +7,29 @@ use App\Models\Course;
 
 class EloquentCourseRepository implements CourseRepositoryInterface
 {
-    public function getAllApproved()
+    public function getAllApproved($categorySlug = null)
     {
-        return Course::where('is_approved', true)->with('instructor')->get();
+        $query = Course::where('is_approved', true)->with(['instructor', 'category']);
+        if ($categorySlug) {
+            $query->whereHas('category', function ($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
+        }
+        return $query->latest()->get();
     }
 
     public function findBySlug($slug)
     {
-        return Course::where('slug', $slug)->with(['chapters.subChapters.material', 'chapters.subChapters.quiz'])->firstOrFail();
+        return Course::where('slug', $slug)->with([
+            'instructor',
+            'category',
+            'likes',
+            'comments' => function($query) {
+                $query->whereNull('parent_id')->with(['user', 'likes', 'replies.user', 'replies.likes']);
+            },
+            'chapters.subChapters.material',
+            'chapters.subChapters.quiz'
+        ])->firstOrFail();
     }
 
     public function findOrFail($id)

@@ -117,36 +117,32 @@
             <div class="p-6">
                 <a href="{{ route('home') }}" class="text-xl font-bold tracking-tighter text-primary">PintarDigital</a>
                 <div class="mt-2 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/50">
-                    {{ strtoupper(auth()->user()->role) }} PANEL
+                    PANEL {{ auth()->user()->role === 'instructor' ? 'MENTOR' : (auth()->user()->role === 'student' ? 'SISWA' : 'ADMIN') }}
                 </div>
             </div>
 
             <nav class="flex-1 px-4 space-y-1">
                 @if (auth()->user()->role === 'admin')
                     <x-nav-link href="{{ route('admin.dashboard') }}" icon="dashboard"
-                        :active="request()->routeIs('admin.dashboard') && !request()->has('view')">Overview</x-nav-link>
+                        :active="request()->routeIs('admin.dashboard') && !request()->has('view')">Ringkasan</x-nav-link>
                     <x-nav-link href="{{ route('admin.users.index') }}" icon="group"
-                        :active="request()->routeIs('admin.users.*')">Members</x-nav-link>
-                    <x-nav-link href="{{ route('admin.dashboard', ['view' => 'approvals']) }}" icon="verified" :active="request()->query('view') === 'approvals'">Course
-                        Approvals</x-nav-link>
+                        :active="request()->routeIs('admin.users.*')">Anggota</x-nav-link>
+                    <x-nav-link href="{{ route('admin.dashboard', ['view' => 'approvals']) }}" icon="verified" :active="request()->query('view') === 'approvals'">Persetujuan Kelas</x-nav-link>
                     <x-nav-link href="{{ route('settings.edit') }}" icon="settings"
-                        :active="request()->routeIs('settings.*')">Settings</x-nav-link>
+                        :active="request()->routeIs('settings.*')">Pengaturan</x-nav-link>
                 @elseif(auth()->user()->role === 'instructor')
                     <x-nav-link href="{{ route('instructor.dashboard') }}" icon="dashboard"
-                        :active="request()->routeIs('instructor.dashboard')">Overview</x-nav-link>
-                    <x-nav-link href="{{ route('instructor.courses.index') }}" icon="auto_stories" :active="request()->routeIs('instructor.courses.*')">My
-                        Courses</x-nav-link>
+                        :active="request()->routeIs('instructor.dashboard')">Ringkasan</x-nav-link>
+                    <x-nav-link href="{{ route('instructor.courses.index') }}" icon="auto_stories" :active="request()->routeIs('instructor.courses.*')">Kelas Saya</x-nav-link>
                     <x-nav-link href="{{ route('instructor.students.index') }}" icon="analytics"
-                        :active="request()->routeIs('instructor.students.*')">Student Progress</x-nav-link>
+                        :active="request()->routeIs('instructor.students.*')">Progres Siswa</x-nav-link>
                     <x-nav-link href="{{ route('settings.edit') }}" icon="settings"
-                        :active="request()->routeIs('settings.*')">Settings</x-nav-link>
+                        :active="request()->routeIs('settings.*')">Pengaturan</x-nav-link>
                 @else
-                    <x-nav-link href="{{ route('student.dashboard') }}" icon="dashboard" :active="request()->routeIs('student.dashboard')">My
-                        Learning</x-nav-link>
-                    <x-nav-link href="{{ route('courses.index') }}" icon="explore" :active="request()->routeIs('courses.*')">Browse
-                        Catalog</x-nav-link>
+                    <x-nav-link href="{{ route('student.dashboard') }}" icon="dashboard" :active="request()->routeIs('student.dashboard')">Pembelajaran Saya</x-nav-link>
+                    <x-nav-link href="{{ route('courses.index') }}" icon="explore" :active="request()->routeIs('courses.*')">Katalog Kelas</x-nav-link>
                     <x-nav-link href="{{ route('settings.edit') }}" icon="settings"
-                        :active="request()->routeIs('settings.*')">Settings</x-nav-link>
+                        :active="request()->routeIs('settings.*')">Pengaturan</x-nav-link>
                 @endif
             </nav>
 
@@ -166,7 +162,7 @@
                         <p class="text-xs font-bold truncate group-hover:text-primary transition-colors">
                             {{ auth()->user()->name }}</p>
                         <p class="text-[10px] text-on-surface-variant/70 font-bold uppercase tracking-widest truncate">
-                            {{ auth()->user()->role }}</p>
+                            {{ auth()->user()->role === 'instructor' ? 'Mentor' : (auth()->user()->role === 'student' ? 'Siswa' : 'Admin') }}</p>
                     </div>
                 </a>
                 <form method="POST" action="{{ route('logout') }}" class="mt-4">
@@ -174,7 +170,7 @@
                     <button type="submit"
                         class="w-full flex items-center gap-3 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-error hover:bg-error/5 transition-colors rounded-xl">
                         <span class="material-symbols-outlined text-[18px]">logout</span>
-                        Sign Out
+                        Keluar
                     </button>
                 </form>
             </div>
@@ -184,7 +180,7 @@
         <main class="flex-1 overflow-y-auto bg-surface">
             <header
                 class="h-16 border-b border-outline-variant/10 flex items-center justify-between px-8 sticky top-0 bg-surface/80 backdrop-blur-md z-40">
-                <h2 class="text-sm font-black uppercase tracking-[0.2em] text-on-surface/60">@yield('header', 'Dashboard')</h2>
+                <h2 class="text-sm font-black uppercase tracking-[0.2em] text-on-surface/60">@yield('header', 'Dasbor')</h2>
                 <div class="flex items-center gap-6">
                     <!-- Notifications Dropdown -->
                     <div class="relative group">
@@ -202,12 +198,11 @@
                             class="absolute right-0 mt-2 w-80 bg-surface-container-lowest border border-outline-variant/10 rounded-2xl shadow-2xl shadow-primary/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                             <div
                                 class="p-4 border-b border-outline-variant/5 flex justify-between items-center bg-surface-container-low/50">
-                                <h4 class="text-xs font-black uppercase tracking-widest">Recent Activity</h4>
+                                <h4 class="text-xs font-black uppercase tracking-widest">Aktivitas Terbaru</h4>
                                 @if (auth()->user()->unreadNotifications->count() > 0)
                                     <form action="{{ route('notifications.read-all') }}" method="POST">
                                         @csrf
-                                        <button class="text-[10px] font-bold text-primary hover:underline">Clear
-                                            All</button>
+                                        <button class="text-[10px] font-bold text-primary hover:underline">Hapus Semua</button>
                                     </form>
                                 @endif
                             </div>
@@ -237,7 +232,7 @@
                                 @empty
                                     <div class="p-8 text-center text-on-surface-variant/40">
                                         <span class="material-symbols-outlined text-4xl mb-2">notifications_off</span>
-                                        <p class="text-xs font-bold uppercase tracking-widest">No new alerts</p>
+                                        <p class="text-xs font-bold uppercase tracking-widest">Tidak ada aktivitas baru</p>
                                     </div>
                                 @endforelse
                             </div>

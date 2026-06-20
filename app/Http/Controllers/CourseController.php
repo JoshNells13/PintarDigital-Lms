@@ -29,16 +29,39 @@ class CourseController extends Controller
         $this->progressRepository = $progressRepository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $courses = $this->courseRepository->getAllApproved();
-        return view('courses.index', compact('courses'));
+        $categorySlug = $request->query('category');
+        $courses = $this->courseRepository->getAllApproved($categorySlug);
+        $categories = \App\Models\Category::all();
+        
+        return view('courses.index', compact('courses', 'categories', 'categorySlug'));
     }
 
     public function show($slug)
     {
         $course = $this->courseRepository->findBySlug($slug);
         return view('courses.show', compact('course'));
+    }
+
+    public function like(Course $course)
+    {
+        $like = \App\Models\CourseLike::where('user_id', auth()->id())
+            ->where('course_id', $course->id)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+            $message = 'Batal menyukai kelas ini.';
+        } else {
+            \App\Models\CourseLike::create([
+                'user_id' => auth()->id(),
+                'course_id' => $course->id,
+            ]);
+            $message = 'Menyukai kelas ini!';
+        }
+
+        return back()->with('success', $message);
     }
 
     public function create()
@@ -207,14 +230,52 @@ class CourseController extends Controller
     public function markComplete(\App\Models\SubChapter $subChapter)
     {
         $user = auth()->user();
+        $course = $subChapter->chapter->course;
 
         // Ensure user is enrolled
-        if (!$user->enrolledCourses()->where('course_id', $subChapter->chapter->course_id)->exists()) {
+        if (!$user->enrolledCourses()->where('course_id', $course->id)->exists()) {
             abort(403);
         }
 
         $this->progressRepository->markAsCompleted($user->id, $subChapter->id);
 
-        return back()->with('success', 'Lesson marked as complete!');
+        // Check if course is completed
+        if ($course->isCompletedBy($user)) {
+            $enrollment = \App\Models\Enrollment::where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->first();
+            
+            if ($enrollment && is_null($enrollment->completed_at)) {
+                $enrollment->update(['completed_at' => now()]);
+            }
+            return back()->with('success', 'Pelajaran ditandai selesai! Selamat, Anda telah menyelesaikan kelas ini!');
+        }
+
+        return back()->with('success', 'Pelajaran ditandai selesai!');
+    }
+
+    public function certificate(Course $course)
+    {
+        $user = auth()->user();
+
+        // Ensure user is enrolled
+        $enrollment = \App\Models\Enrollment::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->first();
+
+        if (!$enrollment) {
+            abort(403, 'Anda belum mendaftar di kelas ini.');
+        }
+
+        // Ensure course is completed
+        if (!$course->isCompletedBy($user)) {
+            abort(403, 'Anda belum menyelesaikan semua bab pada kelas ini.');
+        }
+
+        if (is_null($enrollment->completed_at)) {
+            $enrollment->update(['completed_at' => now()]);
+        }
+
+        return view('courses.certificate', compact('course', 'user', 'enrollment'));
     }
 }
