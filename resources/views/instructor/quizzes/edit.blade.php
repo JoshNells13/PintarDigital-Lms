@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Quiz Builder | ' . $subChapter->title)
-@section('header', 'Build Assessment: ' . $subChapter->title)
+@section('title', 'Pembuat Kuis | ' . $subChapter->title)
+@section('header', 'Buat Evaluasi: ' . $subChapter->title)
 
 @section('content')
 <div class="max-w-4xl mx-auto space-y-8">
@@ -16,14 +16,14 @@
 
     <div class="space-y-6">
         <div class="bg-surface-container-lowest p-8 rounded-2xl border border-outline-variant/10 shadow-sm">
-            <h3 class="text-lg font-bold mb-6">Add New Question</h3>
+            <h3 class="text-lg font-bold mb-6">Tambah Pertanyaan Baru</h3>
             <form action="{{ route('instructor.quizzes.questions.store', $quiz->id) }}" method="POST" class="flex gap-4">
                 @csrf
-                <input type="text" name="text" placeholder="e.g. What is the fundamental principle of focus?" required
+                <input type="text" name="text" placeholder="mis. Apa prinsip dasar dari fokus?" required
                     class="flex-1 px-4 py-3 bg-surface-container rounded-xl border-none focus:ring-2 focus:ring-primary/20 text-sm font-medium">
                 <button type="submit" class="px-6 py-3 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[0.98] transition-all flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm">add</span>
-                    Add Question
+                    Tambah Pertanyaan
                 </button>
             </form>
         </div>
@@ -67,15 +67,15 @@
                     <div class="p-4 rounded-xl border border-dashed border-outline-variant/30">
                         <form action="{{ route('instructor.questions.choices.store', $question->id) }}" method="POST" class="space-y-3">
                             @csrf
-                            <input type="text" name="text" placeholder="Add choice..." required
+                            <input type="text" name="text" placeholder="Tambah pilihan..." required
                                 class="w-full px-3 py-2 bg-surface-container rounded-lg border-none focus:ring-1 focus:ring-primary/20 text-xs font-medium">
                             <div class="flex items-center justify-between">
                                 <label class="flex items-center gap-2 cursor-pointer">
                                     <input type="checkbox" name="is_correct" value="1" class="rounded text-primary focus:ring-primary/20">
-                                    <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Mark as correct</span>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Tandai sebagai benar</span>
                                 </label>
                                 <button type="submit" class="px-4 py-1.5 bg-surface-container-high text-on-surface text-[10px] font-bold uppercase rounded-lg hover:bg-surface-container-highest transition-colors">
-                                    Add
+                                    Tambah
                                 </button>
                             </div>
                         </form>

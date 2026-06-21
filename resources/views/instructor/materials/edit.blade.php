@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title', 'Editor | ' . $subChapter->title)
-@section('header', 'Editing Material: ' . $subChapter->title)
+@section('header', 'Mengedit Materi: ' . $subChapter->title)
 
 @section('content')
 <!-- Editor Styles -->
@@ -41,7 +41,7 @@
         </div>
         <div class="flex gap-2">
             <button form="material-form" type="submit" class="px-6 py-2 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[0.98] transition-all">
-                Save Changes
+                Simpan Perubahan
             </button>
         </div>
     </div>
@@ -54,7 +54,7 @@
             <div>
                 <input type="text" name="title" value="{{ old('title', $subChapter->material->title ?? $subChapter->title) }}" required
                     class="w-full text-4xl font-extrabold tracking-tight bg-transparent border-none p-0 focus:ring-0 placeholder:text-on-surface-variant/20"
-                    placeholder="Enter material title...">
+                    placeholder="Masukkan judul materi...">
             </div>
 
             <!-- Content Area -->
@@ -84,7 +84,7 @@
             "preview", "side-by-side", "fullscreen", "|", 
             "guide"
         ],
-        placeholder: "Write your editorial content here using Markdown...",
+        placeholder: "Tulis konten materi Anda di sini menggunakan Markdown...",
     });
 </script>
 @endsection

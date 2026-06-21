@@ -1,15 +1,15 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Manage Users | Sanctuary Admin')
-@section('header', 'Platform Members')
+@section('title', 'Kelola Pengguna | Sanctuary Admin')
+@section('header', 'Anggota Platform')
 
 @section('content')
 <div class="space-y-6">
     <div class="flex justify-between items-center">
-        <h2 class="text-xl font-bold tracking-tight">Active Members</h2>
+        <h2 class="text-xl font-bold tracking-tight">Anggota Aktif</h2>
         <a href="{{ route('admin.users.create') }}" class="px-4 py-2 bg-primary text-on-primary text-xs font-bold uppercase rounded-xl hover:bg-primary-container transition-all flex items-center gap-2">
             <span class="material-symbols-outlined text-sm">person_add</span>
-            Add New User
+            Tambah Pengguna Baru
         </a>
     </div>
 
@@ -17,10 +17,10 @@
         <table class="w-full text-left">
             <thead class="bg-surface-container-low text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
                 <tr>
-                    <th class="px-6 py-4">Name</th>
+                    <th class="px-6 py-4">Nama</th>
                     <th class="px-6 py-4">Email</th>
-                    <th class="px-6 py-4">Role</th>
-                    <th class="px-6 py-4 text-right">Actions</th>
+                    <th class="px-6 py-4">Peran</th>
+                    <th class="px-6 py-4 text-right">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-outline-variant/5">
@@ -38,7 +38,7 @@
                         <td class="px-6 py-4">
                             <span class="px-2 py-1 text-[10px] font-bold uppercase rounded-md 
                                 {{ $user->role === 'admin' ? 'bg-error/10 text-error' : ($user->role === 'instructor' ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary') }}">
-                                {{ $user->role }}
+                                {{ $user->role === 'admin' ? 'Admin' : ($user->role === 'instructor' ? 'Mentor' : 'Siswa') }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-right">
@@ -50,7 +50,7 @@
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-2 text-on-surface-variant hover:bg-error/10 hover:text-error rounded-lg transition-colors" onclick="return confirm('Are you sure?')">
+                                        <button type="submit" class="p-2 text-on-surface-variant hover:bg-error/10 hover:text-error rounded-lg transition-colors" onclick="return confirm('Apakah Anda yakin?')">
                                             <span class="material-symbols-outlined text-sm">delete</span>
                                         </button>
                                     </form>

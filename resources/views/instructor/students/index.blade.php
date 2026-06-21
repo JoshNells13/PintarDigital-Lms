@@ -1,27 +1,27 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Student Enrollment | Sanctuary Instructor')
-@section('header', 'Student Participants')
+@section('title', 'Pendaftaran Siswa | Sanctuary Instruktur')
+@section('header', 'Peserta Siswa')
 
 @section('content')
 <div class="space-y-6">
     <div class="flex justify-between items-center">
-        <h2 class="text-xl font-bold tracking-tight">Enrolled Students</h2>
+        <h2 class="text-xl font-bold tracking-tight">Siswa Terdaftar</h2>
     </div>
 
     @if($enrolledStudents->isEmpty())
         <div class="bg-surface-container-low p-12 rounded-3xl text-center text-on-surface-variant italic border-2 border-dashed border-outline-variant/10">
-            No students have enrolled in your courses yet.
+            Belum ada siswa yang mendaftar di kelas Anda.
         </div>
     @else
         <div class="bg-surface-container-lowest border border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm">
             <table class="w-full text-left">
                 <thead class="bg-surface-container-low text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">
                     <tr>
-                        <th class="px-6 py-4">Student</th>
-                        <th class="px-6 py-4">Enrolled Courses</th>
-                        <th class="px-6 py-4">Progress Status</th>
-                        <th class="px-6 py-4 text-right">Activity</th>
+                        <th class="px-6 py-4">Siswa</th>
+                        <th class="px-6 py-4">Kelas yang Diikuti</th>
+                        <th class="px-6 py-4">Status Progres</th>
+                        <th class="px-6 py-4 text-right">Aktivitas</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-outline-variant/5">
@@ -62,7 +62,7 @@
                                 </ul>
                             </td>
                             <td class="px-6 py-4 text-right text-xs text-on-surface-variant">
-                                Enrolled {{ $student->enrolledCourses->first()->pivot->enrolled_at->diffForHumans() }}
+                                Terdaftar {{ $student->enrolledCourses->first()->pivot->enrolled_at->diffForHumans() }}
                             </td>
                         </tr>
                     @endforeach

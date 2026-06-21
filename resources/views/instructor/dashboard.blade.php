@@ -1,29 +1,29 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Instructor Dashboard | Sanctuary Learning')
-@section('header', 'Instructor Dashboard')
+@section('title', 'Dasbor Instruktur | Sanctuary Learning')
+@section('header', 'Dasbor Instruktur')
 
 @section('content')
     <div class="space-y-8">
         <!-- Stats Row -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-surface-container-low p-6 rounded-2xl">
-                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">My Courses</p>
+                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Kelas Saya</p>
                 <p class="text-3xl font-extrabold">{{ $courses->count() }}</p>
             </div>
             <div class="bg-surface-container-low p-6 rounded-2xl">
-                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Total Students</p>
+                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Total Siswa</p>
                 <p class="text-3xl font-extrabold">{{ $totalStudents }}</p>
             </div>
             <div class="bg-surface-container-low p-6 rounded-2xl">
-                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Platform Rating</p>
+                <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Peringkat Platform</p>
                 <p class="text-3xl font-extrabold">4.9</p>
             </div>
         </div>
 
         <!-- Quick Actions -->
         <div class="flex justify-between items-center">
-            <h3 class="text-xl font-bold tracking-tight">Active Courses</h3>
+            <h3 class="text-xl font-bold tracking-tight">Kelas Aktif</h3>
             <a href="{{ route('instructor.courses.create') }}"
                 class="px-5 py-2.5 bg-primary text-on-primary text-sm font-bold rounded-xl hover:bg-primary-container transition-colors flex items-center gap-2">
                 <span class="material-symbols-outlined text-base">add</span>
@@ -34,7 +34,7 @@
         @if ($courses->isEmpty())
             <div
                 class="bg-surface-container-lowest border border-outline-variant/10 rounded-2xl p-12 text-center text-on-surface-variant">
-                <p>You haven't created any courses yet. Start sharing your knowledge today.</p>
+                <p>Anda belum membuat kelas apa pun. Mulailah berbagi pengetahuan Anda hari ini.</p>
             </div>
         @else
             <div class="bg-surface-container-low border border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm">
@@ -42,10 +42,10 @@
                     <thead
                         class="bg-surface-container-low text-xs font-bold text-on-surface-variant uppercase tracking-widest">
                         <tr>
-                            <th class="px-6 py-4">Course Name</th>
-                            <th class="px-6 py-4">Students</th>
+                            <th class="px-6 py-4">Nama Kelas</th>
+                            <th class="px-6 py-4">Siswa</th>
                             <th class="px-6 py-4">Status</th>
-                            <th class="px-6 py-4 text-right">Actions</th>
+                            <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-outline-variant/5">
@@ -61,16 +61,15 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="font-medium">{{ $course->students_count }} students</span>
+                                    <span class="font-medium">{{ $course->students_count }} siswa</span>
                                 </td>
                                 <td class="px-6 py-4">
                                     @if ($course->is_approved)
                                         <span
-                                            class="inline-flex items-center px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-md">Approved</span>
+                                            class="inline-flex items-center px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-md">Disetujui</span>
                                     @else
                                         <span
-                                            class="inline-flex items-center px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold uppercase rounded-md">Pending
-                                            Review</span>
+                                            class="inline-flex items-center px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold uppercase rounded-md">Menunggu Peninjauan</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-right">
@@ -81,7 +80,7 @@
                                             <span class="material-symbols-outlined text-base">edit</span>
                                         </a>
                                         <form action="{{ route('instructor.courses.destroy', $course->id) }}" method="POST"
-                                            class="inline" onsubmit="return confirm('Deleting is permanent. Proceed?')">
+                                            class="inline" onsubmit="return confirm('Menghapus bersifat permanen. Lanjutkan?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
