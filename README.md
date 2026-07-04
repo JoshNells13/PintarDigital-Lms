@@ -7,18 +7,6 @@
 PintarDigital adalah platform **Learning Management System (LMS)** profesional yang dirancang untuk memberikan pengalaman belajar-mengajar yang mulus, terstruktur, dan berkinerja tinggi. Aplikasi ini mengimplementasikan standar koding industri dengan pola desain yang bersih, estetika modern bertema gelap-terang minimalis (B&W), dan interaktivitas tingkat lanjut.
 
 ---
-
-## 🎨 Pembaruan Desain & Estetika Premium (Terbaru)
-
-PintarDigital kini hadir dengan desain antarmuka modern terinspirasi dari standar desain **Aceternity UI** dan **shadcn/ui**:
-- **Black & White Minimalist Dark Theme**: Tema utama menggunakan warna hitam pekat (`#09090b`) sebagai dasar permukaan, dengan aksen kontras putih (`#ffffff`) dan abu-abu premium (`zinc/neutral`).
-- **Global Grid Background Pattern**: Seluruh bagian landing page dan dashboard dibalut dengan background grid subtle bermotif geometris yang transparan dan menyatu lembut.
-- **Glassmorphic Floating Navbar**: Navigasi atas melayang yang elegan dengan efek *blur* latar belakang (`backdrop-blur-md`) dan transisi navigasi interaktif.
-- **Hero Floating Animation**: Ilustrasi kartu mockup interaktif pada Hero Section memiliki animasi mengambang lembut (`animate-float`) untuk meningkatkan kenyamanan visual.
-- **Animated Testimonials (Blade Version)**: Komponen testimoni dinamis yang mensimulasikan pergeseran kartu 3D dengan rotasi, penskalaan acak, dan reveal kata per kata.
-- **Collapsible Dashboard Sidebar**: Sidebar panel dashboard interaktif yang ringkas (`w-20`) dan melebar secara halus saat dihover (`hover:w-72`), lengkap dengan reveal teks dan pencantuman avatar instan.
-- **Vibrant Code Syntax Highlighting**: Blok kode pemrograman di dalam materi pembelajaran tidak lagi hitam-putih; sekarang terintegrasi dengan **Highlight.js (GitHub Dark)** serta dilengkapi tombol salin kode cepat ("Salin / Tersalin!").
-
 ---
 
 ## 📸 Cuplikan Layar
