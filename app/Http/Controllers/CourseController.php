@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Category;
+use App\Models\Chapter;
 use App\Contracts\Repositories\CourseRepositoryInterface;
 use App\Contracts\Repositories\ProgressRepositoryInterface;
+use App\Models\CourseLike;
+use App\Models\SubChapter;
+use App\Models\Enrollment;
 use App\Services\CourseService;
 use App\Services\UploadService;
 use Illuminate\Support\Str;
@@ -33,8 +38,8 @@ class CourseController extends Controller
     {
         $categorySlug = $request->query('category');
         $courses = $this->courseRepository->getAllApproved($categorySlug);
-        $categories = \App\Models\Category::all();
-        
+        $categories = Category::all();
+
         return view('courses.index', compact('courses', 'categories', 'categorySlug'));
     }
 
@@ -46,7 +51,7 @@ class CourseController extends Controller
 
     public function like(Course $course)
     {
-        $like = \App\Models\CourseLike::where('user_id', auth()->id())
+        $like = CourseLike::where('user_id', auth()->id())
             ->where('course_id', $course->id)
             ->first();
 
@@ -54,7 +59,7 @@ class CourseController extends Controller
             $like->delete();
             $message = 'Batal menyukai kelas ini.';
         } else {
-            \App\Models\CourseLike::create([
+            CourseLike::create([
                 'user_id' => auth()->id(),
                 'course_id' => $course->id,
             ]);
@@ -111,15 +116,15 @@ class CourseController extends Controller
     {
         $course = $this->courseRepository->findBySlug($slug);
         $user = auth()->user();
-        
+
         // Check enrollment
         if (!$user->enrolledCourses()->where('course_id', $course->id)->exists()) {
             return redirect()->route('courses.show', $slug)->with('error', 'You must enroll first.');
         }
 
         $firstChapter = $course->chapters->first();
-        $currentSubChapter = $subChapterId 
-            ? \App\Models\SubChapter::with(['material', 'quiz.questions.choices'])->findOrFail($subChapterId)
+        $currentSubChapter = $subChapterId
+            ? SubChapter::with(['material', 'quiz.questions.choices'])->findOrFail($subChapterId)
             : ($firstChapter ? $firstChapter->subChapters()->with(['material', 'quiz.questions.choices'])->first() : null);
 
         if (!$currentSubChapter) {
@@ -199,7 +204,7 @@ class CourseController extends Controller
         $request->validate(['title' => 'required|string|max:255']);
         $this->courseRepository->addSubChapter($chapterId, [
             'title' => $request->title,
-            'order' => \App\Models\Chapter::find($chapterId)->subChapters()->count() + 1
+            'order' => Chapter::find($chapterId)->subChapters()->count() + 1
         ]);
 
         return back()->with('success', 'Sub-chapter added.');
@@ -207,7 +212,7 @@ class CourseController extends Controller
 
     public function editMaterial($subChapterId)
     {
-        $subChapter = \App\Models\SubChapter::with('material')->findOrFail($subChapterId);
+        $subChapter = SubChapter::with('material')->findOrFail($subChapterId);
         return view('instructor.materials.edit', compact('subChapter'));
     }
 
@@ -227,7 +232,7 @@ class CourseController extends Controller
         return back()->with('success', 'Material updated.');
     }
 
-    public function markComplete(\App\Models\SubChapter $subChapter)
+    public function markComplete(SubChapter $subChapter)
     {
         $user = auth()->user();
         $course = $subChapter->chapter->course;
@@ -241,10 +246,10 @@ class CourseController extends Controller
 
         // Check if course is completed
         if ($course->isCompletedBy($user)) {
-            $enrollment = \App\Models\Enrollment::where('user_id', $user->id)
+            $enrollment = Enrollment::where('user_id', $user->id)
                 ->where('course_id', $course->id)
                 ->first();
-            
+
             if ($enrollment && is_null($enrollment->completed_at)) {
                 $enrollment->update(['completed_at' => now()]);
             }
@@ -259,7 +264,7 @@ class CourseController extends Controller
         $user = auth()->user();
 
         // Ensure user is enrolled
-        $enrollment = \App\Models\Enrollment::where('user_id', $user->id)
+        $enrollment = Enrollment::where('user_id', $user->id)
             ->where('course_id', $course->id)
             ->first();
 

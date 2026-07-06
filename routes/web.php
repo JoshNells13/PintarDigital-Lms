@@ -5,6 +5,15 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Instructor\DashboardController as InstructorDashboard;
 use App\Http\Controllers\Student\DashboardController as StudentDashboard;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MentorController;
+use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\CourseCommentController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Instructor\QuizController;
+use App\Http\Controllers\Instructor\StudentController;
+use App\Http\Controllers\Student\QuizAttemptController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -13,9 +22,9 @@ Route::get('/', [CourseController::class, 'home'])->name('home');
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::get('/courses/{slug}', [CourseController::class, 'show'])->name('courses.show');
 Route::post('/courses/{course}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll')->middleware('auth');
-Route::get('/mentors', [\App\Http\Controllers\MentorController::class, 'index'])->name('mentors.index');
+Route::get('/mentors', [MentorController::class, 'index'])->name('mentors.index');
 Route::get('/learning-paths', function () { return view('learning-paths'); })->name('learning-paths');
-Route::get('/leaderboard', [\App\Http\Controllers\LeaderboardController::class, 'index'])->name('leaderboard');
+Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
 
 // Auth Routes
 Route::middleware('guest')->group(function () {
@@ -29,8 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::post('/courses/{course}/like', [CourseController::class, 'like'])->name('courses.like');
-    Route::post('/courses/{course}/comments', [\App\Http\Controllers\CourseCommentController::class, 'store'])->name('courses.comments.store');
-    Route::post('/comments/{comment}/like', [\App\Http\Controllers\CourseCommentController::class, 'likeComment'])->name('comments.like');
+    Route::post('/courses/{course}/comments', [CourseCommentController::class, 'store'])->name('courses.comments.store');
+    Route::post('/comments/{comment}/like', [CourseCommentController::class, 'likeComment'])->name('comments.like');
     Route::get('/courses/{course}/certificate', [CourseController::class, 'certificate'])->name('courses.certificate');
 
     // Admin Routes
@@ -38,7 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
         Route::post('/courses/{course}/approve', [AdminDashboard::class, 'approve'])->name('courses.approve');
         Route::post('/courses/{course}/reject', [AdminDashboard::class, 'reject'])->name('courses.reject');
-        Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+        Route::resource('users', UserController::class);
     });
 
     // Instructor Routes
@@ -56,14 +65,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/sub-chapters/{subChapter}/material', [CourseController::class, 'updateMaterial'])->name('sub-chapters.material.update');
 
         // Quiz Builder
-        Route::get('/sub-chapters/{subChapter}/quiz', [\App\Http\Controllers\Instructor\QuizController::class, 'edit'])->name('sub-chapters.quiz.edit');
-        Route::post('/quizzes/{quiz}/questions', [\App\Http\Controllers\Instructor\QuizController::class, 'addQuestion'])->name('quizzes.questions.store');
-        Route::delete('/questions/{question}', [\App\Http\Controllers\Instructor\QuizController::class, 'removeQuestion'])->name('questions.destroy');
-        Route::post('/questions/{question}/choices', [\App\Http\Controllers\Instructor\QuizController::class, 'addChoice'])->name('questions.choices.store');
-        Route::delete('/choices/{choice}', [\App\Http\Controllers\Instructor\QuizController::class, 'removeChoice'])->name('choices.destroy');
+        Route::get('/sub-chapters/{subChapter}/quiz', [QuizController::class, 'edit'])->name('sub-chapters.quiz.edit');
+        Route::post('/quizzes/{quiz}/questions', [QuizController::class, 'addQuestion'])->name('quizzes.questions.store');
+        Route::delete('/questions/{question}', [QuizController::class, 'removeQuestion'])->name('questions.destroy');
+        Route::post('/questions/{question}/choices', [QuizController::class, 'addChoice'])->name('questions.choices.store');
+        Route::delete('/choices/{choice}', [QuizController::class, 'removeChoice'])->name('choices.destroy');
 
         // Student management
-        Route::get('/students', [\App\Http\Controllers\Instructor\StudentController::class, 'index'])->name('students.index');
+        Route::get('/students', [StudentController::class, 'index'])->name('students.index');
     });
 
     // Student Routes
@@ -73,21 +82,21 @@ Route::middleware('auth')->group(function () {
         Route::prefix('student')->name('student.')->group(function () {
             Route::get('/learning/{course_slug}/{subChapterId?}', [CourseController::class, 'learn'])->name('learning');
             Route::post('/learning/sub-chapter/{subChapter}/complete', [CourseController::class, 'markComplete'])->name('learning.complete');
-            Route::post('/quizzes/{quiz}/submit', [\App\Http\Controllers\QuizAttemptController::class, 'submit'])->name('quizzes.submit');
+            Route::post('/quizzes/{quiz}/submit', [QuizAttemptController::class, 'submit'])->name('quizzes.submit');
         });
     });
 
     // Settings & Notifications (Available to all roles)
     Route::prefix('settings')->name('settings.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\SettingsController::class, 'edit'])->name('edit');
-        Route::put('/profile', [\App\Http\Controllers\SettingsController::class, 'update'])->name('profile.update');
-        Route::put('/password', [\App\Http\Controllers\SettingsController::class, 'updatePassword'])->name('password.update');
+        Route::get('/', [SettingsController::class, 'edit'])->name('edit');
+        Route::put('/profile', [SettingsController::class, 'update'])->name('profile.update');
+        Route::put('/password', [SettingsController::class, 'updatePassword'])->name('password.update');
     });
 
     Route::prefix('notifications')->name('notifications.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\NotificationController::class, 'index'])->name('index');
-        Route::post('/{id}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('read');
-        Route::post('/read-all', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('read-all');
-        Route::delete('/{id}', [\App\Http\Controllers\NotificationController::class, 'destroy'])->name('destroy');
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::post('/{id}/read', [NotificationController::class, 'markAsRead'])->name('read');
+        Route::post('/read-all', [NotificationController::class, 'markAllAsRead'])->name('read-all');
+        Route::delete('/{id}', [NotificationController::class, 'destroy'])->name('destroy');
     });
 });

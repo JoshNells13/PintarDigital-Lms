@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Progress;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -18,7 +19,7 @@ class DashboardController extends Controller
             
             $subChapterIds = $course->chapters->flatMap(fn($c) => $c->subChapters)->pluck('id');
             
-            $completedCount = \App\Models\Progress::where('user_id', $user->id)
+            $completedCount = Progress::where('user_id', $user->id)
                 ->whereIn('sub_chapter_id', $subChapterIds)
                 ->where('is_completed', true)
                 ->count();

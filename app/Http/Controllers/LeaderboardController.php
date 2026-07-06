@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Progress;
 use Illuminate\Http\Request;
 
 class LeaderboardController extends Controller
@@ -17,7 +18,7 @@ class LeaderboardController extends Controller
             ])
             ->get()
             ->map(function ($student) {
-                $completedSubChaptersCount = \App\Models\Progress::where('user_id', $student->id)
+                $completedSubChaptersCount = Progress::where('user_id', $student->id)
                     ->where('is_completed', true)
                     ->count();
 

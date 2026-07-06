@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
+use App\Http\Controllers\Controller;
 use App\Models\Quiz;
+use App\Models\Enrollment;
 use App\Services\QuizService;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,7 @@ class QuizAttemptController extends Controller
         $user = auth()->user();
         
         if ($course->isCompletedBy($user)) {
-            $enrollment = \App\Models\Enrollment::where('user_id', $user->id)
+            $enrollment = Enrollment::where('user_id', $user->id)
                 ->where('course_id', $course->id)
                 ->first();
             if ($enrollment && is_null($enrollment->completed_at)) {
